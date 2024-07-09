@@ -1,4 +1,4 @@
-package com.example.lecturerestapi.lecture;
+package com.example.lecturerestapi.constants;
 
 public enum Category {
     SPRING,

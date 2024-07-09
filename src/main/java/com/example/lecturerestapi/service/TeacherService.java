@@ -1,5 +1,9 @@
-package com.example.lecturerestapi.teacher;
+package com.example.lecturerestapi.service;
 
+import com.example.lecturerestapi.dto.TeacherRequest;
+import com.example.lecturerestapi.dto.TeacherResponse;
+import com.example.lecturerestapi.entity.Teacher;
+import com.example.lecturerestapi.repository.TeacherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

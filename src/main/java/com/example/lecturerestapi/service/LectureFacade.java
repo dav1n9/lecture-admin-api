@@ -1,7 +1,9 @@
-package com.example.lecturerestapi.lecture;
+package com.example.lecturerestapi.service;
 
-import com.example.lecturerestapi.teacher.Teacher;
-import com.example.lecturerestapi.teacher.TeacherService;
+import com.example.lecturerestapi.constants.Category;
+import com.example.lecturerestapi.dto.LectureRequest;
+import com.example.lecturerestapi.dto.LectureResponse;
+import com.example.lecturerestapi.entity.Teacher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

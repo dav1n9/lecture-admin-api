@@ -1,5 +1,9 @@
-package com.example.lecturerestapi.lecture;
+package com.example.lecturerestapi.controller;
 
+import com.example.lecturerestapi.constants.Category;
+import com.example.lecturerestapi.service.LectureFacade;
+import com.example.lecturerestapi.dto.LectureRequest;
+import com.example.lecturerestapi.dto.LectureResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

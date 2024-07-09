@@ -1,5 +1,8 @@
-package com.example.lecturerestapi.teacher;
+package com.example.lecturerestapi.controller;
 
+import com.example.lecturerestapi.dto.TeacherRequest;
+import com.example.lecturerestapi.dto.TeacherResponse;
+import com.example.lecturerestapi.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

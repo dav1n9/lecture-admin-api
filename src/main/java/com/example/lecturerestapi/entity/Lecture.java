@@ -1,6 +1,7 @@
-package com.example.lecturerestapi.lecture;
+package com.example.lecturerestapi.entity;
 
-import com.example.lecturerestapi.teacher.Teacher;
+import com.example.lecturerestapi.constants.Category;
+import com.example.lecturerestapi.dto.LectureRequest;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

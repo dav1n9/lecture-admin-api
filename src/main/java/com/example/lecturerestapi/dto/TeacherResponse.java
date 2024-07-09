@@ -1,5 +1,6 @@
-package com.example.lecturerestapi.teacher;
+package com.example.lecturerestapi.dto;
 
+import com.example.lecturerestapi.entity.Teacher;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

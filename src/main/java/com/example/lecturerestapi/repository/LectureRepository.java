@@ -1,5 +1,7 @@
-package com.example.lecturerestapi.lecture;
+package com.example.lecturerestapi.repository;
 
+import com.example.lecturerestapi.constants.Category;
+import com.example.lecturerestapi.entity.Lecture;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
