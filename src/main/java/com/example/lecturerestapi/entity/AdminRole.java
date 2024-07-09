@@ -1,6 +1,20 @@
 package com.example.lecturerestapi.entity;
 
+import lombok.Getter;
+
+@Getter
 public enum AdminRole {
-    MANAGER,
-    STAFF
+    MANAGER(Authority.MANAGER),
+    STAFF(Authority.STAFF);
+
+    private final String authority;
+
+    AdminRole(String authority) {
+        this.authority = authority;
+    }
+
+    public static class Authority {
+        public static final String MANAGER = "ROLE_MANAGER";
+        public static final String STAFF = "ROLE_STAFF";
+    }
 }
