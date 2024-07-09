@@ -1,6 +1,6 @@
 package com.example.lecturerestapi.dto;
 
-import com.example.lecturerestapi.constants.Category;
+import com.example.lecturerestapi.entity.Category;
 import com.example.lecturerestapi.entity.Lecture;
 import com.example.lecturerestapi.entity.Teacher;
 import lombok.Getter;

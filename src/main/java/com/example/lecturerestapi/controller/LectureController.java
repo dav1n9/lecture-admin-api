@@ -1,6 +1,6 @@
 package com.example.lecturerestapi.controller;
 
-import com.example.lecturerestapi.constants.Category;
+import com.example.lecturerestapi.entity.Category;
 import com.example.lecturerestapi.service.LectureFacade;
 import com.example.lecturerestapi.dto.LectureRequest;
 import com.example.lecturerestapi.dto.LectureResponse;

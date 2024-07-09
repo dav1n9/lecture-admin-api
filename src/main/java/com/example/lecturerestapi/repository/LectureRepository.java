@@ -1,6 +1,6 @@
 package com.example.lecturerestapi.repository;
 
-import com.example.lecturerestapi.constants.Category;
+import com.example.lecturerestapi.entity.Category;
 import com.example.lecturerestapi.entity.Lecture;
 import org.springframework.data.jpa.repository.JpaRepository;
 
