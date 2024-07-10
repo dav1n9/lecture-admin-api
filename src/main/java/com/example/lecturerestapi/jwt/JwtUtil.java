@@ -1,6 +1,6 @@
 package com.example.lecturerestapi.jwt;
 
-import com.example.lecturerestapi.entity.AdminRole;
+import com.example.lecturerestapi.admin.entity.AdminRole;
 import com.example.lecturerestapi.exception.ErrorType;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

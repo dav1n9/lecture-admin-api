@@ -1,9 +1,9 @@
 package com.example.lecturerestapi.jwt;
 
-import com.example.lecturerestapi.dto.ErrorResponse;
-import com.example.lecturerestapi.entity.Admin;
+import com.example.lecturerestapi.exception.ErrorResponse;
+import com.example.lecturerestapi.admin.entity.Admin;
 import com.example.lecturerestapi.exception.ErrorType;
-import com.example.lecturerestapi.repository.AdminRepository;
+import com.example.lecturerestapi.admin.repository.AdminRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
