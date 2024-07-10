@@ -1,6 +1,7 @@
 package com.example.lecturerestapi.jwt;
 
 import com.example.lecturerestapi.entity.AdminRole;
+import com.example.lecturerestapi.exception.ErrorType;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -69,7 +70,7 @@ public class JwtUtil {
         if (StringUtils.hasText(tokenValue) && tokenValue.startsWith(BEARER_PREFIX)) {
             return tokenValue.substring(7);
         }
-        throw new NullPointerException("Not Found Token");
+        throw new NullPointerException(ErrorType.NOT_FOUND_TOKEN.getMessage());
     }
 
     // 토큰 검증
@@ -78,13 +79,7 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException | SignatureException e) {
-            throw new IllegalArgumentException("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
-        } catch (ExpiredJwtException e) {
-            throw new IllegalArgumentException("Expired JWT token, 만료된 JWT token 입니다.");
-        } catch (UnsupportedJwtException e) {
-            throw new IllegalArgumentException("Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다.");
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("JWT claims is empty, 잘못된 JWT 토큰 입니다.");
+            return false;
         }
     }
 
