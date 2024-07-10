@@ -5,6 +5,7 @@ import com.example.lecturerestapi.dto.LectureRequest;
 import com.example.lecturerestapi.dto.LectureResponse;
 import com.example.lecturerestapi.entity.Lecture;
 import com.example.lecturerestapi.entity.Teacher;
+import com.example.lecturerestapi.exception.ErrorType;
 import com.example.lecturerestapi.repository.LectureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,7 @@ public class LectureService {
     }
 
     public Lecture findLectureById(Long lectureId) {
-        return lectureRepository.findById(lectureId).orElseThrow(NullPointerException::new);
+        return lectureRepository.findById(lectureId)
+                .orElseThrow(() -> new NullPointerException(ErrorType.NOT_FOUND_LECTURE.getMessage()));
     }
 }
