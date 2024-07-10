@@ -31,7 +31,6 @@ public class AuthFilter implements Filter {
         if (StringUtils.hasText(url) && (url.startsWith("/admin"))) {
             chain.doFilter(request, response);
         } else {
-            // 토큰 확인
             String tokenValue = jwtUtil.getTokenFromRequest(httpServletRequest);
 
             if (StringUtils.hasText(tokenValue)) {
@@ -57,6 +56,12 @@ public class AuthFilter implements Filter {
         }
     }
 
+    /**
+     * filter 에서 예외를 처리하여 반환하는 메소드.
+     * ErrorType 객체를 바탕으로 에러 코드와 에러 메시지를 담고 있는 JSON 형식의 예외 정보 설정
+     * @param response HTTP 응답 객체
+     * @param error 발생한 예외 정보를 담고 있는 ErrorType
+     */
     public void exceptionHandler(HttpServletResponse response, ErrorType error) {
         response.setStatus(error.getCode());
         response.setContentType("application/json");

@@ -15,9 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.Optional;
-
-
 @Service
 @Validated
 @RequiredArgsConstructor
@@ -27,40 +24,44 @@ public class AdminService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
+    /**
+     * 관리자 회원가입 메소드.
+     * 1. 동일한 email 로 가입할 수 없다.
+     * 2. 마케팅 부서는 MANAGER 권한을 부여 받을 수 없다.
+     * @param request 회원가입을 진행할 관리자 정보가 담긴 DTO
+     * @return 회원가입이 완료된 관리자 정보를 담은 응답 DTO
+     * @throws IllegalArgumentException 동일한 이메일이 이미 존재하거나 마케팅 부서가 MANAGER 권한을 요청한 경우
+     */
     public AdminResponse signup(@Valid AdminRequest request) {
-        String email = request.getEmail();
-        String password = passwordEncoder.encode(request.getPassword());
-
-        // email 중복 확인
-        Optional<Admin> checkEmail = adminRepository.findByEmail(email);
-        if (checkEmail.isPresent()) {
+        if (adminRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new IllegalArgumentException(ErrorType.DUPLICATE_EMAIL_ERROR.getMessage());
         }
 
-        // 마케팅 부서는 MANAGER 권한을 부여 받을 수 없음
         if (request.getDepartment() == Department.MARKETING && request.getRole() == AdminRole.MANAGER) {
             throw new IllegalArgumentException(ErrorType.MARKETING_CANNOT_BE_MANAGER.getMessage());
         }
 
-        // 사용자 등록
+        String password = passwordEncoder.encode(request.getPassword());
         return new AdminResponse(adminRepository.save(request.toEntity(password)));
     }
 
+    /**
+     * 관리자 로그인 메소드.
+     * 관리자의 존재 여부와 비밀번호를 확인한 뒤,
+     * JWT 를 생성하여 쿠키에 저장하고 Response 객체에 추가한다.
+     * @param requestDto 관리자 로그인 요청 정보가 담긴 DTO
+     * @param res HTTP 응답 객체
+     * @return 로그인된 관리자의 정보를 담은 응답 DTO
+     * @throws IllegalArgumentException 관리자 정보가 없거나 비밀번호가 일치하지 않는 경우
+     */
     public AdminResponse login(AdminRequest requestDto, HttpServletResponse res) {
-        String email = requestDto.getEmail();
-        String password = requestDto.getPassword();
+        Admin admin = adminRepository.findByEmail(requestDto.getEmail()).orElseThrow(
+                () -> new IllegalArgumentException(ErrorType.NOT_FOUND_ADMIN.getMessage()));
 
-        // 사용자 확인
-        Admin admin = adminRepository.findByEmail(email).orElseThrow(
-                () -> new IllegalArgumentException(ErrorType.NOT_FOUND_ADMIN.getMessage())
-        );
-
-        // 비밀번호 확인
-        if (!passwordEncoder.matches(password, admin.getPassword())) {
+        if (!passwordEncoder.matches(requestDto.getPassword(), admin.getPassword())) {
             throw new IllegalArgumentException(ErrorType.PASSWORD_MISMATCH.getMessage());
         }
 
-        // JWT 생성 및 쿠키에 저장 후 Response 객체에 추가
         String token = jwtUtil.createToken(admin.getEmail(), admin.getRole());
         jwtUtil.addJwtToCookie(token, res);
 
